@@ -59,4 +59,16 @@ Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
     Route::get("shop/del/{id}", "ShopController@del")->name("shop.shop.del");
     Route::get("shop/examine/{id}", "ShopController@examine")->name("shop.shop.examine");
 
+    //商品分类
+    Route::get("menuCate/index", "MenuCategoryController@index")->name("shop.menucategory.index");
+    Route::any("menuCate/add", "MenuCategoryController@add")->name("shop.menucategory.add");
+    Route::any("menuCate/edit/{id}", "MenuCategoryController@edit")->name("shop.menucategory.edit");
+    Route::get("menuCate/del/{id}", "MenuCategoryController@del")->name("shop.menucategory.del");
+
+    //商品
+    Route::get("menu/index", "MenuController@index")->name("shop.menu.index");
+    Route::any("menu/add", "MenuController@add")->name("shop.menu.add");
+    Route::any("menu/edit/{id}", "MenuController@edit")->name("shop.menu.edit");
+    Route::get("menu/del/{id}", "MenuController@del")->name("shop.menu.del");
+
 });

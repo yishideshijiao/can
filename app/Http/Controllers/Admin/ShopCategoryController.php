@@ -29,7 +29,7 @@ class ShopCategoryController extends BaseController
 
             $data = $request->post();
             $data['img'] = $request->file("img")->store("images", "image");
-//            dd($data);
+            dd($data);
             ShopCategory::create($data);
             return redirect()->route("admin.shopCate.index")->with("success", "添加成功");
         } else {
