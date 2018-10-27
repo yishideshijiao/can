@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Shop;
 use App\Models\ShopCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class ShopCategoryController extends BaseController
 
             $data = $request->post();
             $data['img'] = $request->file("img")->store("images", "image");
-            dd($data);
+//            dd($data);
             ShopCategory::create($data);
             return redirect()->route("admin.shopCate.index")->with("success", "添加成功");
         } else {
@@ -40,7 +41,19 @@ class ShopCategoryController extends BaseController
     public function del($id)
     {
         $cate = ShopCategory::find($id);
+
+//        得到当前分类下的店铺数
+        $count=Shop::where("shop_category_id",$cate->id)->count();
+//        dd($count);
+
+        if($count){
+            //回跳
+            return back()->with("danger","该分类下有店铺，不允许删除");
+        }
+
         if ($cate->delete()) {
+            //删除原来图片
+            @unlink($cate->img);
             return redirect()->route("admin.shopCate.index");
         }
 
@@ -59,7 +72,13 @@ class ShopCategoryController extends BaseController
             ]);
             $data = $request->post();
 //            dd($data);
-            $data['img'] = $request->file("img")->store("images", "image");
+            $img=$request->file("img");
+            if ($img) {
+                //删除原来图片
+                @unlink($cate->img);
+
+                $data['img'] = $request->file("img")->store("images", "image");
+            }
             if ($cate->update($data)) {
                 return redirect()->route("admin.shopCate.index");
             }

@@ -1,8 +1,8 @@
-@extends("shop.layouts.main")
+@extends("admin.layouts.main")
 @section("title","商家信息列表")
 @section("content")
 
-    <a href="{{route("shop.shop.add")}}" class="btn btn-info">添加</a>
+    <a href="{{route("admin.shop.add")}}" class="btn btn-info">添加</a>
     <table class="table table-bordered">
 
         <tr>
@@ -38,10 +38,10 @@
 
                 <td>
 
-                    <a href="{{route('shop.shop.edit',$shop->id)}}" class="btn btn-success">编辑</a>
-                    <a href="{{route('shop.shop.del',$shop->id)}}" class="btn btn-danger">删除</a>
+                    <a href="{{route('admin.shop.edit',$shop->id)}}" class="btn btn-success">编辑</a>
+                    <a href="{{route('admin.shop.del',$shop->id)}}" class="btn btn-danger">删除</a>
                     @if($shop->status==0 ||$shop->status==-1 )
-                        <a href="{{route('shop.shop.examine',$shop->id)}}" class="btn btn-primary">允许上线</a>
+                        <a href="{{route('admin.shop.examine',$shop->id)}}" class="btn btn-primary">允许上线</a>
                     @endif
 
 

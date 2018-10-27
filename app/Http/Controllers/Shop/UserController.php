@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Admin\BaseController;
+//use App\Http\Controllers\Admin\BaseController;
+use App\Models\Admin;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,13 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
-    public function index()
-    {
-        $users = User::paginate(2);
-//        dd($users);
-        return view("shop.user.index", compact("users"));
-    }
-
     public function reg(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -48,6 +42,16 @@ class UserController extends BaseController
 
             //前端不要守门员
             if (Auth::attempt($data, $request->has("remember"))) {
+
+                //判断是否有店铺
+//        dd(Auth::user()->shop);
+                if (Auth::user()->shop === null) {
+
+                    //跳转到添加商铺
+                    return redirect()->route("shop.index.add")->with("danger", "你还没有创建店铺");
+
+                }
+
                 return redirect()->intended(route("shop.index.index"))->with("success", "登录成功");
 
             } else {
@@ -65,7 +69,7 @@ class UserController extends BaseController
         return redirect()->route("shop.user.login");
     }
 
-    public function add(Request $request, $id)
+    public function add(Request $request)
     {
         if ($request->isMethod('post')) {
             //验证
@@ -88,34 +92,21 @@ class UserController extends BaseController
         }
     }
 
-    public function del($id)
+    public function change(Request $request)
     {
-        $user = User::find($id);
-        if ($user->delete()) {
-            return redirect()->route("shop.user.index");
-        }
+        if ($request->isMethod("post")) {
+            $id = Auth::guard()->user()->id;
+//            dd($id);
+            $user = User::find($id);
+//            dd($user);
+            $password = bcrypt($_POST['password']);
+            $user->password = $password;
+            $user->save();
+            return redirect()->route("shop.index.index")->with("success", "修改成功");
 
-    }
-
-    public function edit(Request $request, $id)
-    {
-        $user = User::find($id);
-        if ($request->isMethod('post')) {
-            //验证
-            $this->validate($request, [
-                "name" => "required",
-                "email" => "required",
-                "password" => "required",
-            ]);
-            $data = $request->post();
-//            dd($data);
-            if ($user->update($data)) {
-                return redirect()->route("shop.user.index");
-            }
-        } else {
-            $shops = Shop::all();
-            return view('shop.user.edit', compact('user', 'shops'));
         }
+        return view("shop.user.change");
+
     }
 
 

@@ -18,9 +18,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+
+            return redirect()->intended(route("admin.index"))->with("danger","你已登录");
+
         }
 
         return $next($request);
     }
 }
+

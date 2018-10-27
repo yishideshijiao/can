@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 class BaseController extends Controller
 {
     //权限
-//    public function __construct()
-//    {
-//        $this->middleware("auth:admin",[
-//            "except"=>["login","reg"]
-//        ]);
-//    }
+    public function __construct()
+    {
+        $this->middleware("auth:admin",[
+            "except"=>["login","reg"]
+        ]);
+    }
 }

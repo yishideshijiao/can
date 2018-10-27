@@ -3,7 +3,7 @@
 @section("content")
 
     <a href="{{route("admin.shopCate.add")}}" class="btn btn-info">添加</a>
-    <table class="table">
+    <table class="table table-bordered">
 
         <tr>
             <th>id</th>

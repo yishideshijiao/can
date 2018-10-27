@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Admin\BaseController;
 use App\Models\Shop;
 use App\Models\ShopCategory;
 use Illuminate\Http\Request;
@@ -40,6 +39,7 @@ class IndexController extends BaseController
             $data = $request->post();
             $data['shop_img'] = $request->file("img")->store("images", "image");
 
+            //自动绑定当前登录用户id
             $id = Auth::guard()->user()->id;
             $data["user_id"] = $id;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Shop;
 use App\Models\ShopCategory;
@@ -10,11 +10,10 @@ use App\Http\Controllers\Controller;
 
 class ShopController extends BaseController
 {
-
     public function index()
     {
         $shops = Shop::paginate(4);
-        return view("shop.shop.index", compact("shops"));
+        return view("admin.shop.index", compact("shops"));
     }
 
     public function add(Request $request)
@@ -34,9 +33,9 @@ class ShopController extends BaseController
             $data['shop_img'] = $request->file("img")->store("images", "image");
 //            dd($data);
             Shop::create($data);
-            return redirect()->route("shop.shop.index")->with("success", "添加成功");
+            return redirect()->route("admin.shop.index")->with("success", "添加成功");
         } else {
-            return view("shop.shop.add", compact("cates", "users"));
+            return view("admin.shop.add", compact("cates", "users"));
         }
     }
 
@@ -45,7 +44,7 @@ class ShopController extends BaseController
         $shop = Shop::find($id);
         if ($shop->delete()) {
             //删除原来图片
-            @unlink ($shop->shop_img);
+            @unlink($shop->shop_img);
             return redirect()->route("shop.shop.index");
         }
 
@@ -64,19 +63,19 @@ class ShopController extends BaseController
 //            ]);
             $data = $request->post();
 
-            $img=$request->file("img");
-            if ($img){
+            $img = $request->file("img");
+            if ($img) {
                 //删除原来图片
-                @unlink ($shop->shop_img);
+                @unlink($shop->shop_img);
 
 //            dd($data);
-            $data['shop_img'] = $request->file("img")->store("images", "image");
+                $data['shop_img'] = $request->file("img")->store("images", "image");
             }
             if ($shop->update($data)) {
-                return redirect()->route("shop.shop.index");
+                return redirect()->route("admin.shop.index");
             }
         } else {
-            return view('shop.shop.edit', compact('shop'));
+            return view('admin.shop.edit', compact('shop'));
         }
     }
 
@@ -89,6 +88,4 @@ class ShopController extends BaseController
         $shop->save();
         return redirect()->route("shop.shop.index");
     }
-
-
 }

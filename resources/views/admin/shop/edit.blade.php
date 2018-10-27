@@ -1,4 +1,4 @@
-@extends("shop.layouts.main")
+@extends("admin.layouts.main")
 
 @section("title","修改商铺")
 
@@ -113,10 +113,10 @@
                     <div class="col-sm-10">
 
                         状态：<label class="radio-inline">
-                            <input type="radio" name="status" value="1" @if($shop->status==1) checked @endif> 显示
+                            <input type="radio" name="status" value="1" @if($shop->status==1) checked @endif> 上线
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="0" @if($shop->status==0) checked @endif> 隐藏
+                            <input type="radio" name="status" value="0" @if($shop->status==0) checked @endif> 待审
                         </label>
 
                         <label class="radio-inline">

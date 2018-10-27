@@ -1,4 +1,4 @@
-@extends("shop.layouts.main")
+@extends("admin.layouts.main")
 
 @section("title","添加商铺")
 
@@ -7,6 +7,13 @@
     <table border="1" class="container-fluid">
         <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
+            {{--<tr>--}}
+            {{--<div class="form-group">--}}
+            {{--<div class="col-sm-10">--}}
+            {{--店铺分类ID<input type="text" class="form-control"  name="shop_category_id" value="{{old("shop_category_id")}}">--}}
+            {{--</div>--}}
+            {{--</div>--}}
+            {{--</tr>--}}
 
             <div class="form-group">
                 <div class="col-sm-10">
@@ -76,6 +83,16 @@
             </tr>
 
 
+            <div class="form-group">
+                <div class="col-sm-10">
+                    用户Id<select name="user_id" class="form-control">
+                        @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <tr>
                 <div class="form-group">
                     <div class="form-group">
@@ -98,9 +115,15 @@
                     <div class="col-sm-10">
 
                         状态：<label class="radio-inline">
-                            <input type="radio" name="status" value="0" checked> 待审核
+                            <input type="radio" name="status" value="1" checked> 上线
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="0"> 待审
                         </label>
 
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="-1"> 禁止
+                        </label>
                     </div>
                 </div>
             </tr>

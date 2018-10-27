@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">会员管理系统</a>
+            <a class="navbar-brand" href="{{route("admin.admin.index")}}">会员管理系统</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,40 +18,60 @@
                 {{--<li><a href="#">充值</a></li>--}}
                 {{--<li><a href="#">消费</a></li>--}}
                 {{--<li><a href="#">消费记录显示</a></li>--}}
-                <li><a href="">套餐管理</a></li>
+
                 {{--<li class="dropdown">--}}
-                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--}}
+                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理员 <span class="caret"></span></a>--}}
                     {{--<ul class="dropdown-menu">--}}
-                        {{--<li><a href="#">Action</a></li>--}}
-                        {{--<li><a href="#">Another action</a></li>--}}
-                        {{--<li><a href="#">Something else here</a></li>--}}
-                        {{--<li role="separator" class="divider"></li>--}}
-                        {{--<li><a href="#">Separated link</a></li>--}}
-                        {{--<li role="separator" class="divider"></li>--}}
-                        {{--<li><a href="#">One more separated link</a></li>--}}
+                        {{--<li><a href="{{route("admin.admin.index")}}">管理员列表</a></li>--}}
+                        {{--<li><a href="{{route("admin.admin.add")}}">添加管理员</a></li>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
-            </ul>
-            {{--<form class="navbar-form navbar-left">--}}
-                {{--<div class="form-group">--}}
-                    {{--<input type="text" class="form-control" placeholder="Search">--}}
-                {{--</div>--}}
-                {{--<button type="submit" class="btn btn-default">Submit</button>--}}
-            {{--</form>--}}
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">注册</a></li>
-                <li><a href="{{route("admin.admin.login")}}">登录</a></li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">操作 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route("admin.user.index")}}">用户列表</a></li>
+                        <li><a href="{{route("admin.user.add")}}">添加用户</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺分类管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route("admin.shopCate.index")}}">分类列表</a></li>
+                        <li><a href="{{route("admin.shopCate.add")}}">添加分类</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route("admin.shop.index")}}">店铺列表</a></li>
+                        <li><a href="{{route("admin.shop.add")}}">添加店铺</a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                @guest("admin")
+                <li><a href="#">注册</a></li>
+                <li><a href="{{route("admin.admin.login")}}">登录</a></li>
+                @endguest
+
+                @auth("admin")
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{\Illuminate\Support\Facades\Auth::guard("admin")->user()->name}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">我的资料</a></li>
                         <li><a href="#">修改资料</a></li>
+                        <li><a href="{{route("admin.admin.change")}}">更换密码</a></li>
                         <li><a href="{{route("admin.admin.logout")}}">注销登录</a></li>
-                        {{--<li role="separator" class="divider"></li>--}}
-                        {{--<li><a href="#">Separated link</a></li>--}}
                     </ul>
                 </li>
+                @endauth
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

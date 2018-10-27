@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Shop;
+use App\Models\ShopCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends BaseController
 {
@@ -70,7 +74,10 @@ class AdminController extends BaseController
     public function del($id)
     {
         $admin = Admin::find($id);
+
         if ($admin->delete()) {
+            //删除他的店铺
+            //删除店铺图片
             return redirect()->route("admin.admin.index");
         }
 
@@ -96,4 +103,24 @@ class AdminController extends BaseController
             return view('admin.admin.edit', compact('admin'));
         }
     }
+
+    public function change(Request $request)
+    {
+        if($request->isMethod("post")){
+            $admin=Admin::find(Auth::guard("admin")->user()->id);
+            $data=$request->post();
+            $id=Auth::guard("admin")->user()->id;
+//            dd($name);
+            $password=bcrypt($_POST['password']);
+            $admin->password=$password;
+            $admin->save();
+            return redirect()->route("admin.user.index")->with("success", "修改成功");
+
+        }
+        return view("admin.admin.change");
+
+    }
+
+
+
 }

@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">用户账号</label>
             <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" placeholder="管理员账号" value="{{old("name")}}">
+                <input type="text" name="name" class="form-control" placeholder="用户账号" value="{{old("name")}}">
             </div>
         </div>
         <div class="form-group">
