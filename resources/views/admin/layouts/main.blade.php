@@ -24,6 +24,12 @@
 
 <div class="container-fluid">
 @include("admin.layouts._error")
+
+
+    @include('vendor.ueditor.assets')
+
+
+
 @include("admin.layouts._msg")
 @yield("content")
 

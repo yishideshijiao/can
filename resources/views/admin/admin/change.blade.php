@@ -6,9 +6,23 @@
         {{csrf_field()}}
 
         <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">旧密码</label>
+            <div class="col-sm-10">
+                <input type="password" name="old_password" class="form-control" placeholder="旧密码">
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">新密码</label>
             <div class="col-sm-10">
                 <input type="password" name="password" class="form-control" placeholder="新密码">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">确认新密码</label>
+            <div class="col-sm-10">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="确认新密码">
             </div>
         </div>
 

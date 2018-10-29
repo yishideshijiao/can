@@ -17,7 +17,8 @@
             <label class="col-sm-2 control-label">上传图片</label>
             <div class="col-sm-10">
                 <input type="file" name="img">
-                <img src="/{{$cate->img}}" height="80px" alt="">
+{{--                <img src="/{{$cate->img}}" height="80px" alt="">--}}
+                <img src="{{env("ALIYUN_OSS_URL").$cate->img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
             </div>
         </div>
 

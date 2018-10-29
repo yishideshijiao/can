@@ -31,7 +31,7 @@ class ShopController extends BaseController
 //            ]);
 
             $data = $request->post();
-            $data['shop_img'] = $request->file("img")->store("images", "image");
+            $data['shop_img'] = $request->file("img")->store("images");
 //            dd($data);
             Shop::create($data);
             return redirect()->route("shop.shop.index")->with("success", "添加成功");
@@ -70,7 +70,7 @@ class ShopController extends BaseController
                 @unlink ($shop->shop_img);
 
 //            dd($data);
-            $data['shop_img'] = $request->file("img")->store("images", "image");
+            $data['shop_img'] = $request->file("img")->store("images");
             }
             if ($shop->update($data)) {
                 return redirect()->route("shop.shop.index");

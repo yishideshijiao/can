@@ -50,13 +50,13 @@ class UserController extends BaseController
         //事务
         DB::transaction(function () use ($id) {
             //1.删除用户
-            User::findOrFail($id)->delete();
+//            User::findOrFail($id)->delete();
             //查到他的店（默认1对1）
-            $cate = Shop::where("shop_category_id", $id)->get();
+            $cate = Shop::where("user_id", $id)->get();
 //            dd($cate);
             @unlink($cate[0]->shop_img);
             //2.删除对应店铺
-            Shop::where("shop_category_id", $id)->delete();
+            Shop::where("user_id", $id)->delete();
         });
 
 
@@ -100,7 +100,7 @@ class UserController extends BaseController
 //            ]);
 
             $data = $request->post();
-            $data['shop_img'] = $request->file("img")->store("images", "image");
+            $data['shop_img'] = $request->file("img")->store("images");
 
             //自动绑定当前登录用户id
 

@@ -37,7 +37,7 @@ class IndexController extends BaseController
 //            ]);
 
             $data = $request->post();
-            $data['shop_img'] = $request->file("img")->store("images", "image");
+            $data['shop_img'] = $request->file("img")->store("images");
 
             //自动绑定当前登录用户id
             $id = Auth::guard()->user()->id;

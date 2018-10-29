@@ -29,7 +29,8 @@ class ShopCategoryController extends BaseController
             ]);
 
             $data = $request->post();
-            $data['img'] = $request->file("img")->store("images", "image");
+//            $data['img'] = $request->file("img")->store("images", "image");
+            $data['img'] = $request->file("img")->store("images");
 //            dd($data);
             ShopCategory::create($data);
             return redirect()->route("admin.shopCate.index")->with("success", "添加成功");
@@ -77,7 +78,7 @@ class ShopCategoryController extends BaseController
                 //删除原来图片
                 @unlink($cate->img);
 
-                $data['img'] = $request->file("img")->store("images", "image");
+                $data['img'] = $request->file("img")->store("images");
             }
             if ($cate->update($data)) {
                 return redirect()->route("admin.shopCate.index");

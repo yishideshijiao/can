@@ -62,7 +62,7 @@ class MenuController extends BaseController
 //            ]);
 
             $data = $request->post();
-            $data['goods_img'] = $request->file("img")->store("images", "image");
+//            $data['goods_img'] = $request->file("img")->store("images");
 //            dd($data);
             Menu::create($data);
             return redirect()->route("shop.menu.index")->with("success", "添加成功");
@@ -98,12 +98,13 @@ class MenuController extends BaseController
 //                'img'=>"required"
 //            ]);
             $data = $request->post();
+//            dd($data);
             $img=$request->file("img");
             if ($img){
                 //删除原来图片
                 @unlink ($menu->goods_img);
                 //赋值
-                $data['goods_img'] = $request->file("img")->store("images", "image");
+//                $data['goods_img'] = $request->file("img")->store("images");
             }
 
 //            dd($data);
@@ -113,6 +114,32 @@ class MenuController extends BaseController
         } else {
             return view('shop.menu.edit', compact('menu','cates'));
         }
+    }
+
+    public function upload(Request $request)
+    {
+        //处理上传
+
+        //dd($request->file("file"));
+
+        $file=$request->file("file");
+
+
+        if ($file){
+            //上传
+
+            $url=$file->store("menu_cate");
+
+            /// var_dump($url);
+            //得到真实地址  加 http的址
+            $url=Storage::url($url);
+
+            $data['url']=$url;
+
+            return $data;
+            ///var_dump($url);
+        }
+
     }
 
 

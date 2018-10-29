@@ -17,9 +17,10 @@
             <tr>
                 <td>{{$cate->id}}</td>
                 <td>{{$cate->name}}</td>
-                <td>
-                    <img src="/{{$cate->img}}" height="80px" alt="">
-                </td>
+                {{--<td>--}}
+                    {{--<img src="/{{$cate->img}}" height="80px" alt="">--}}
+                {{--</td>--}}
+                <td><img src="{{env("ALIYUN_OSS_URL").$cate->img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>{{$cate->status==1?'显示':'隐藏'}}</td>
                 <td>{{$cate->sort}}</td>
 

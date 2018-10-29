@@ -15,7 +15,18 @@
     <!--[if lt IE 9]>
     <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    @include('vendor.ueditor.assets')
     <![endif]-->
+
+    {{--引入上传图片软件webupload--}}
+
+<!--引入CSS-->
+    <link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
+
+    {{--引用图片上传的css--}}
+    <link rel="stylesheet" href="/css/main.css">
+
+
 </head>
 <body>
 {{--引入头部--}}
@@ -38,6 +49,9 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
+<!--引入JS-->
+<script type="text/javascript" src="/webuploader/webuploader.js"></script>
+@yield("js")
 
 </body>
 </html>

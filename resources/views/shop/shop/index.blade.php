@@ -20,7 +20,8 @@
                 <td>{{$shop->cate->name}}</td>
                 <td>{{$shop->shop_name}}</td>
                 <td>
-                    <img src="/{{$shop->shop_img}}" height="80px" alt="">
+                    {{--<img src="/{{$shop->shop_img}}" height="80px" alt="">--}}
+                    <img src="{{env("ALIYUN_OSS_URL").$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
                 </td>
                 <td>
                     @if($shop->status==1 )

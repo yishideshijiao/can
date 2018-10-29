@@ -51,6 +51,12 @@ Route::domain("admin.clm.com")->namespace("Admin")->group(function () {
     Route::get("shop/del/{id}", "ShopController@del")->name("admin.shop.del");
     Route::get("shop/examine/{id}", "ShopController@examine")->name("admin.shop.examine");
 
+    //活动
+    Route::get("activity/index", "ActivityController@index")->name("admin.activity.index");
+    Route::any("activity/add", "ActivityController@add")->name("admin.activity.add");
+    Route::any("activity/edit/{id}", "ActivityController@edit")->name("admin.activity.edit");
+    Route::get("activity/del/{id}", "ActivityController@del")->name("admin.activity.del");
+
 
 });
 
@@ -74,6 +80,7 @@ Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
     Route::get("shop/del/{id}", "ShopController@del")->name("shop.shop.del");
     Route::get("shop/examine/{id}", "ShopController@examine")->name("shop.shop.examine");
 
+
     //菜单分类
     Route::get("menuCate/index", "MenuCategoryController@index")->name("shop.menucategory.index");
     Route::any("menuCate/add", "MenuCategoryController@add")->name("shop.menucategory.add");
@@ -87,6 +94,11 @@ Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
     Route::any("menu/add", "MenuController@add")->name("shop.menu.add");
     Route::any("menu/edit/{id}", "MenuController@edit")->name("shop.menu.edit");
     Route::get("menu/del/{id}", "MenuController@del")->name("shop.menu.del");
+    Route::any("menu/upload", "MenuController@upload")->name("shop.menu.upload");
+
+    //活动
+    Route::get("activity/index", "ActivityController@index")->name("shop.activity.index");
+    Route::get("activity/show/{id}", "ActivityController@show")->name("shop.activity.show");
 });
 
 

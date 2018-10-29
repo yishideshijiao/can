@@ -33,7 +33,7 @@
                         <li><a href="{{route("shop.menu.index")}}">菜品列表</a></li>
                         <li><a href="{{route("shop.menu.add")}}">添加菜品</a></li>
                     </ul>
-                </li>
+                </li>                                                                                <li><a href="{{route("shop.activity.index")}}">活动一览</a></li>
             </ul>
             {{--<form class="navbar-form navbar-left">--}}
                 {{--<div class="form-group">--}}

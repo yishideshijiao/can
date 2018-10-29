@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends BaseController
 {
@@ -107,20 +108,31 @@ class AdminController extends BaseController
     public function change(Request $request)
     {
         if($request->isMethod("post")){
-            $admin=Admin::find(Auth::guard("admin")->user()->id);
-            $data=$request->post();
-            $id=Auth::guard("admin")->user()->id;
-//            dd($name);
-            $password=bcrypt($_POST['password']);
-            $admin->password=$password;
-            $admin->save();
-            return redirect()->route("admin.user.index")->with("success", "修改成功");
+            //运用哈希
+            //1.验证
+            $this->validate($request, [
+                'old_password' => 'required',
+                'password' => 'required|confirmed'
+            ]);
 
+            //得到当前用户对象
+            $admin=Auth::guard('admin')->user();
+            $oldPassword=$request->post('old_password');
+            //判断对错
+            if(Hash::check($oldPassword,$admin->password)){
+                //正确，修改密码
+                $admin->password=Hash::make($request->post('password'));
+                //保存
+                $admin->save();
+//                exit;
+                return redirect()->route("admin.user.index")->with("success", "修改成功");
+
+            }
+            //输入的老密码不对
+            return back()->with("danger","旧密码不对");
         }
         return view("admin.admin.change");
-
     }
-
 
 
 }

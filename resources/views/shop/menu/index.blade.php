@@ -54,9 +54,13 @@
                 <td>{{$menu->id}}</td>
                 <td>{{$menu->goods_name}}</td>
                 <td>{{$menu->cate->name}}</td>
-                <td>
-                    <img src="/{{$menu->goods_img}}" height="80px" alt="">
-                </td>
+                {{--webupload图片--}}
+                <td><img src="{{$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80" alt=""></td>
+                {{--本机--}}
+                    {{--<img src="/{{$menu->goods_img}}" height="80px" alt="">--}}
+                {{--码云图片上传--}}
+                {{--<td><img src="{{env("ALIYUN_OSS_URL").$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>--}}
+
                 <td>{{$menu->goods_price}}</td>
 
 

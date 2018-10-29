@@ -30,7 +30,8 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                         店铺图片<input type="file" name="img">
-                        <img src="/{{$shop->shop_img}}" height="80px" alt="">
+{{--                        <img src="/{{$shop->shop_img}}" height="80px" alt="">--}}
+                        <img src="{{env("ALIYUN_OSS_URL").$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
                     </div>
                 </div>
             </tr>

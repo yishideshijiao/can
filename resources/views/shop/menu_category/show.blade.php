@@ -16,9 +16,10 @@
             <tr>
                 <td>{{$cate->id}}</td>
                 <td>{{$cate->goods_name}}</td>
-                <td>
-                    <img src="/{{$cate->goods_img}}" height="80px" alt="">
-                </td>
+                {{--<td>--}}
+                    {{--<img src="/{{$cate->goods_img}}" height="80px" alt="">--}}
+                {{--</td>--}}
+                <td><img src="{{env("ALIYUN_OSS_URL").$cate->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
                 <td>{{$cate->goods_price}}</td>
 
             </tr>
