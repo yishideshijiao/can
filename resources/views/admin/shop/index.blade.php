@@ -22,7 +22,8 @@
                 {{--<td>--}}
                     {{--<img src="/{{$shop->shop_img}}" height="80px" alt="">--}}
                 {{--</td>--}}
-                <td><img src="{{env("ALIYUN_OSS_URL").$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>
+                {{--<td><img src="{{env("ALIYUN_OSS_URL").$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80"></td>--}}
+                <td><img src="{{$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80" alt=""></td>
                 <td>
                     @if($shop->status==1 )
                         已上线

@@ -7,6 +7,7 @@ use App\Models\ShopCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends BaseController
 {
@@ -30,7 +31,7 @@ class ShopController extends BaseController
 //            ]);
 
             $data = $request->post();
-            $data['shop_img'] = $request->file("img")->store("images");
+//            $data['shop_img'] = $request->file("img")->store("images");
 //            dd($data);
             Shop::create($data);
             return redirect()->route("admin.shop.index")->with("success", "添加成功");
@@ -70,7 +71,7 @@ class ShopController extends BaseController
 
 //            dd($data);
 
-                $data['shop_img'] = $request->file("img")->store("images");
+//                $data['shop_img'] = $request->file("img")->store("images");
             }
             if ($shop->update($data)) {
                 return redirect()->route("admin.shop.index");
@@ -88,5 +89,31 @@ class ShopController extends BaseController
         //保存
         $shop->save();
         return redirect()->route("shop.shop.index");
+    }
+
+    public function upload(Request $request)
+    {
+        //处理上传
+
+        //dd($request->file("file"));
+
+        $file=$request->file("file");
+
+
+        if ($file){
+            //上传
+
+            $url=$file->store("menu_cate");
+
+            /// var_dump($url);
+            //得到真实地址  加 http的址
+            $url=Storage::url($url);
+
+            $data['url']=$url;
+
+            return $data;
+            ///var_dump($url);
+        }
+
     }
 }

@@ -16,6 +16,8 @@
         <script type="text/javascript">
             var ue = UE.getEditor('container');
             ue.ready(function() {
+                //调整窗口大小
+                ue.setHeight(400)
                 ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
             });
         </script>

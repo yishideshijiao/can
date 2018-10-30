@@ -9,4 +9,6 @@ class ShopCategory extends Model
     protected $fillable=[
       'name','img','status','sort'
     ];
+
+
 }
