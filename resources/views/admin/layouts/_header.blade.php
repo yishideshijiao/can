@@ -64,7 +64,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 @guest("admin")
-                <li><a href="#">注册</a></li>
+                
                 <li><a href="{{route("admin.admin.login")}}">登录</a></li>
                 @endguest
 

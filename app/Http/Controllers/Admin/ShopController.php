@@ -46,7 +46,7 @@ class ShopController extends BaseController
         if ($shop->delete()) {
             //删除原来图片
             @unlink($shop->shop_img);
-            return redirect()->route("shop.shop.index");
+            return redirect()->route("admin.shop.index");
         }
 
     }

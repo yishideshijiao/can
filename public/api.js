@@ -1,22 +1,22 @@
 window.api = {
   // 登录验证接口
-  loginCheck: '/loginCheck.php',
+  loginCheck: '/api/member/login',
   // 获取短信验证码接口
-  sms: '/sms.php',
+  sms: '/api/member/sms',
   // 注册接口
-  regist: '/regist.php',
+  regist: '/api/member/reg',
   // 修改密码接口
-  changePassword: '/changePassword.php',
+  changePassword: '/api/member/change',
   // 忘记密码接口
-  forgetPassword: '/forgetPassword.php',
+  forgetPassword: '/api/member/wang',
   // 地址列表接口
-  addressList: '/addressList.php',
+  addressList: '/api/adress/index',
   // 指定地址接口
   address: '/address.php',
   // 保存新增地址接口
-  addAddress: '/addAddress.php',
+  addAddress: '/api/adress/add',
   // 保存修改地址接口
-  editAddress: '/editAddress.php',
+  editAddress: '/api/adress/edit',
   // 获得订单列表接口
   orderList: '/orderList.php',
   // 获得指定订单接口
@@ -26,13 +26,13 @@ window.api = {
   // 获得指定商家接口
   business: '/api/shop/detail',
   // 保存购物车接口
-  addCart: '/addCart.php',
+  addCart: '/api/carts/add',
   // 获取购物车数据接口
-  cart: '/cart.php',
+  cart: '/api/carts/show',
   // 添加订单接口
   addOrder: '/addorder.php',
   // 支付接口
   pay: '/pay.php',
   // 用户详情接口
-  userDetail: 'http://www.ele.com/api/member/detail'
+  userDetail: '/api/member/detail'
 };

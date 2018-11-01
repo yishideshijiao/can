@@ -95,6 +95,7 @@ class AdminController extends BaseController
                 "password" => "required",
             ]);
             $data = $request->post();
+			$data['password'] = bcrypt($data['password']);
 //            dd($data);
             if ($admin->update($data)) {
                 return redirect()->route("admin.admin.index");
