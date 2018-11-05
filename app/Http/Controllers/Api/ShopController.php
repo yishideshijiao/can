@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class ShopController extends Controller
+class ShopController extends BaseController
 {
     public function index()
     {

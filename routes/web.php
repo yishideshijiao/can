@@ -110,6 +110,21 @@ Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
     Route::get("activity/index", "ActivityController@index")->name("shop.activity.index");
     Route::get("activity/show/{id}", "ActivityController@show")->name("shop.activity.show");
     //endregion
+
+    //region订单
+    Route::get("order/index", "OrderController@index")->name("shop.order.index");
+    Route::get("order/show/{id}", "OrderController@show")->name("shop.order.show");
+    Route::get("order/remove/{id}", "OrderController@remove")->name("shop.order.remove");
+    Route::get("order/go/{id}", "OrderController@go")->name("shop.order.go");
+    //endregion
+
+    //region会员
+    Route::get("member/index", "MemberController@index")->name("shop.member.index");
+    Route::any("member/add", "MemberController@add")->name("shop.member.add");
+    Route::any("member/check/{id}", "MemberController@check")->name("shop.member.check");
+    Route::get("member/forbidden/{id}", "MemberController@forbidden")->name("shop.member.forbidden");
+    Route::get("member/useing/{id}", "MemberController@useing")->name("shop.member.useing");
+    //endregion
 });
 
 
