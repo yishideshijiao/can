@@ -167,7 +167,7 @@ Route::domain(env("SHOP_URL"))->namespace("Shop")->group(function () {
     //endregion
 });
 
-Route::get("kan", function () {
+Route::get("look", function () {
     return "哈哈";
 });
 
