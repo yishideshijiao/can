@@ -167,6 +167,9 @@ Route::domain(env("SHOP_URL"))->namespace("Shop")->group(function () {
     //endregion
 });
 
+Route::get("kan", function () {
+    return "哈哈";
+});
 
 Route::get("test", function () {
     //$content = 'test';//邮件内容
