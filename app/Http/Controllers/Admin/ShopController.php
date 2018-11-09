@@ -53,6 +53,7 @@ class ShopController extends BaseController
 
     public function edit(Request $request, $id)
     {
+        $cates = ShopCategory::all();
         $shop = Shop::find($id);
         if ($request->isMethod('post')) {
             //验证
@@ -77,7 +78,7 @@ class ShopController extends BaseController
                 return redirect()->route("admin.shop.index");
             }
         } else {
-            return view('admin.shop.edit', compact('shop'));
+            return view('admin.shop.edit', compact('shop','cates'));
         }
     }
 

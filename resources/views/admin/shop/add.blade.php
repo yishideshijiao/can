@@ -7,13 +7,6 @@
     <table border="1" class="container-fluid">
         <form class="form-horizontal" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
-            {{--<tr>--}}
-            {{--<div class="form-group">--}}
-            {{--<div class="col-sm-10">--}}
-            {{--店铺分类ID<input type="text" class="form-control"  name="shop_category_id" value="{{old("shop_category_id")}}">--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</tr>--}}
 
             <div class="form-group">
                 <div class="col-sm-10">

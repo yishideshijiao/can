@@ -10,8 +10,11 @@
             <tr>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        店铺分类ID<input type="text" class="form-control" name="shop_category_id"
-                                     value="{{old("shop_category_id",$shop->shop_category_id)}}">
+                        店铺分类ID<select name="shop_category_id" class="form-control">
+                            @foreach($cates as $cate)
+                                <option value="{{$cate->id}}">{{$cate->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </tr>
@@ -28,7 +31,7 @@
 
             <tr>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">上传图片</label>
+                    {{--<label class="col-sm-2 control-label">上传图片</label>--}}
                     <div class="col-sm-10">
                         <input type="hidden" name="shop_img" value="" id="logo">
                         <!--dom结构部分-->

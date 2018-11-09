@@ -167,10 +167,6 @@ Route::domain(env("SHOP_URL"))->namespace("Shop")->group(function () {
     //endregion
 });
 
-Route::get("look", function () {
-    return "哈哈";
-});
-
 Route::get("test", function () {
     //$content = 'test';//邮件内容
     $shopName="互联网学院";
