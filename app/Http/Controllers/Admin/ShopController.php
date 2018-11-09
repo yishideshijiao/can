@@ -84,11 +84,31 @@ class ShopController extends BaseController
     public function examine($id)
     {
         $shop = Shop::find($id);
+        //得到邮箱
+        $email=$shop->user->email;
+//        dd($email);
         //给该用户赋值为1
         $shop->status = 1;
+
         //保存
-        $shop->save();
-        return redirect()->route("shop.shop.index");
+        if($shop->save()){
+
+        //调用发送邮件函数
+            //$content = 'test';//邮件内容
+            $shopName="互联网学院";
+            $to = $email;//收件人
+            $subject = $shopName.' 审核通知';//邮件标题
+            \Illuminate\Support\Facades\Mail::send(
+                'admin.emails.shop',//视图
+                compact("shopName"),//传递给视图的参数
+                function ($message) use($to, $subject) {
+                    $message->to($to)->subject($subject);
+                }
+            );
+
+//            exit;
+        }
+        return redirect()->route("admin.shop.index");
     }
 
     public function upload(Request $request)

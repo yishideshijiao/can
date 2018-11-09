@@ -63,6 +63,40 @@ Route::domain("admin.clm.com")->namespace("Admin")->group(function () {
     Route::any("activity/edit/{id}", "ActivityController@edit")->name("admin.activity.edit");
     Route::get("activity/del/{id}", "ActivityController@del")->name("admin.activity.del");
     //endregion
+
+    //region权限管理
+    Route::get("per/index", "PerController@index")->name("admin.per.index");
+    Route::any("per/add", "PerController@add")->name("admin.per.add");
+    Route::any("per/edit/{id}", "PerController@edit")->name("admin.per.edit");
+    Route::get("per/del/{id}", "PerController@del")->name("admin.per.del");
+    //endregion
+
+    //region角色管理
+    Route::get("role/index", "RoleController@index")->name("admin.role.index");
+    Route::any("role/add", "RoleController@add")->name("admin.role.add");
+    Route::any("role/edit/{id}", "RoleController@edit")->name("admin.role.edit");
+    Route::get("role/del/{id}", "RoleController@del")->name("admin.role.del");
+
+    //endregion
+
+    //region奖品
+    Route::get("eventPrize/index", "EventPrizeController@index")->name("admin.eventPrize.index");
+    Route::any("eventPrize/add", "EventPrizeController@add")->name("admin.eventPrize.add");
+    Route::any("eventPrize/edit/{id}", "EventPrizeController@edit")->name("admin.eventPrize.edit");
+    Route::get("eventPrize/del/{id}", "EventPrizeController@del")->name("admin.eventPrize.del");
+
+    //endregion
+
+    //region抽奖
+    Route::get("event/index", "EventController@index")->name("admin.event.index");
+    Route::any("event/add", "EventController@add")->name("admin.event.add");
+    Route::any("event/edit/{id}", "EventController@edit")->name("admin.event.edit");
+    Route::get("event/del/{id}", "EventController@del")->name("admin.event.del");
+    Route::get("event/look/{id}", "EventController@look")->name("admin.event.look");
+    Route::get("event/rand/{id}", "EventController@rand")->name("admin.event.rand");
+    //endregion
+
+
 });
 
 Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
@@ -125,6 +159,28 @@ Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
     Route::get("member/forbidden/{id}", "MemberController@forbidden")->name("shop.member.forbidden");
     Route::get("member/useing/{id}", "MemberController@useing")->name("shop.member.useing");
     //endregion
+
+    //region抽奖
+    Route::get("event/index", "EventController@index")->name("shop.event.index");
+    Route::any("event/add/{id}", "EventController@add")->name("shop.event.add");
+    Route::get("event/show/{id}", "EventController@show")->name("shop.event.show");
+    //endregion
 });
 
+
+Route::get("test", function () {
+    //$content = 'test';//邮件内容
+    $shopName="互联网学院";
+    $to = '1349672667@qq.com';//收件人
+    $subject = $shopName.' 审核通知';//邮件标题
+    \Illuminate\Support\Facades\Mail::send(
+        'admin.emails.shop',//视图
+        compact("shopName"),//传递给视图的参数
+        function ($message) use($to, $subject) {
+            $message->to($to)->subject($subject);
+        }
+    );
+
+
+});
 

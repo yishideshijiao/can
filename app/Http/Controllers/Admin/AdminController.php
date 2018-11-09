@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends BaseController
 {
@@ -40,7 +41,9 @@ class AdminController extends BaseController
 
     public function logout()
     {
-        Auth::logout();
+        //注销
+        Auth::guard('admin')->logout();
+//        Auth::logout();
         return redirect()->route("admin.admin.login");
     }
 
@@ -65,10 +68,19 @@ class AdminController extends BaseController
             $data = $request->post();
             $data['password'] = bcrypt($data['password']);
 //            dd($data);
-            Admin::create($data);
+           $admin= Admin::create($data);
+
+            //给用户添加角色并同步角色
+            $admin->syncRoles($request->post('role'));
+
+
             return redirect()->route("admin.admin.index")->with("success", "添加成功");
         } else {
-            return view("admin.admin.add");
+
+            //得到所有角色
+            $roles=Role::all();
+
+            return view("admin.admin.add",compact('roles'));
         }
     }
 
@@ -98,11 +110,17 @@ class AdminController extends BaseController
 			$data['password'] = bcrypt($data['password']);
 //            dd($data);
             if ($admin->update($data)) {
+
+                //给用户添加角色并同步角色
+                $admin->syncRoles($request->post('role'));
+
                 return redirect()->route("admin.admin.index");
             }
         } else {
 
-            return view('admin.admin.edit', compact('admin'));
+            //获得所有角色
+            $roles=Role::all();
+            return view('admin.admin.edit', compact('admin','roles'));
         }
     }
 

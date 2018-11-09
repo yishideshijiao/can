@@ -11,14 +11,9 @@
             <a class="navbar-brand" href="{{route("shop.index.index")}}">会员管理系统</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
-                {{--<li><a href="#">充值</a></li>--}}
-                {{--<li><a href="#">消费</a></li>--}}
-                {{--<li><a href="#">消费记录显示</a></li>--}}
-                {{--<li><a href="">套餐管理</a></li>--}}
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">菜品分类管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -34,6 +29,15 @@
                         <li><a href="{{route("shop.menu.add")}}">添加菜品</a></li>
                     </ul>
                 </li>                                                                                <li><a href="{{route("shop.activity.index")}}">活动一览</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">抽奖 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route("shop.menu.add")}}">报名</a></li>
+                        <li><a href="{{route("shop.event.index")}}">抽奖列表 </a></li>
+                        <li><a href="{{route("shop.menu.add")}}">查看结果</a></li>
+                    </ul>
+                </li>
             </ul>
             {{--<form class="navbar-form navbar-left">--}}
                 {{--<div class="form-group">--}}

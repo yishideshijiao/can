@@ -65,7 +65,7 @@ class UserController extends BaseController
 
     public function logout()
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
         return redirect()->route("shop.user.login");
     }
 

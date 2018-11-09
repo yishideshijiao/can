@@ -91,7 +91,7 @@
             <tr>
                 <div class="form-group">
                     <div class="col-sm-3">
-                        用户Id<input type="number" disabled="disabled" class="form-control" name="user_id"
+                        用户Id<input type="text" disabled="disabled" class="form-control" name="user_id"
                                    value="{{old("user_id",$shop->user->name)}}">
                     </div>
                 </div>

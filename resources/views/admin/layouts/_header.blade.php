@@ -14,50 +14,22 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                {{--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>--}}
-                {{--<li><a href="#">充值</a></li>--}}
-                {{--<li><a href="#">消费</a></li>--}}
-                {{--<li><a href="#">消费记录显示</a></li>--}}
 
-                {{--<li class="dropdown">--}}
-                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理员 <span class="caret"></span></a>--}}
-                    {{--<ul class="dropdown-menu">--}}
-                        {{--<li><a href="{{route("admin.admin.index")}}">管理员列表</a></li>--}}
-                        {{--<li><a href="{{route("admin.admin.add")}}">添加管理员</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+@foreach(\App\Models\Nav::where("pid",0)->get() as $k1=>$v1)
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$v1->name}} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.user.index")}}">用户列表</a></li>
-                        <li><a href="{{route("admin.user.add")}}">添加用户</a></li>
-                    </ul>
-                </li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺分类管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.shopCate.index")}}">分类列表</a></li>
-                        <li><a href="{{route("admin.shopCate.add")}}">添加分类</a></li>
-                    </ul>
-                </li>
+                        @foreach(\App\Models\Nav::where("pid",$v1->id)->get() as $k2=>$v2)
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.shop.index")}}">店铺列表</a></li>
-                        <li><a href="{{route("admin.shop.add")}}">添加店铺</a></li>
-                    </ul>
-                </li>
+                        <li><a href="{{route($v2->url)}}">{{$v2->name}}</a></li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">活动管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route("admin.activity.index")}}">活动列表</a></li>
-                        <li><a href="{{route("admin.activity.add")}}">新活动</a></li>
+                            @endforeach
+
                     </ul>
                 </li>
+@endforeach
 
 
             </ul>

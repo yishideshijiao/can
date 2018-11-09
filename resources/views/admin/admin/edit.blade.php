@@ -13,7 +13,7 @@
         <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" placeholder="密码">
+                <input type="password" name="password" class="form-control" placeholder="密码" >
             </div>
         </div>
 
@@ -21,6 +21,15 @@
             <label for="inputPassword3" class="col-sm-2 control-label">邮箱</label>
             <div class="col-sm-10">
                 <input type="text" name="email" class="form-control" value="{{old("email",$admin->email)}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">角色</label>
+            <div class="col-sm-10">
+                @foreach($roles as $role)
+                    <input type="checkbox" name="role[]" value="{{$role->id}}">{{$role->name}}
+                @endforeach
             </div>
         </div>
 
