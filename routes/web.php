@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 //点餐项目
-Route::domain("admin.clm.com")->namespace("Admin")->group(function () {
+Route::domain(env("ADMIN_URL"))->namespace("Admin")->group(function () {
 
     //region商户分类
     Route::get("shopCate/index", "ShopCategoryController@index")->name("admin.shopCate.index");
@@ -99,7 +99,7 @@ Route::domain("admin.clm.com")->namespace("Admin")->group(function () {
 
 });
 
-Route::domain("shop.clm.com")->namespace("Shop")->group(function () {
+Route::domain(env("SHOP_URL"))->namespace("Shop")->group(function () {
 
     //region用户登录
     Route::any("user/reg", "UserController@reg")->name("shop.user.reg");
