@@ -42,4 +42,7 @@ Route::post("order/add","OrderController@add");
 Route::get("order/detail","OrderController@detail");
 Route::get("order/index","OrderController@index");
 Route::post("order/pay","OrderController@pay");
+Route::get("order/wxPay","OrderController@wxPay");
+Route::any("order/ok","OrderController@ok");
+Route::any("order/status","OrderController@status");
 });

@@ -70,19 +70,19 @@ $data=$request->post();
         ];
         $sms = new AliSms();
 
-//          $response = $sms->sendSms($tel, 'SMS_149417487', ['code'=> $code], $config);
+          $response = $sms->sendSms($tel, 'SMS_149417487', ['code'=> $code], $config);
         //5. 返回
-//        if($response->Code=='OK'){
+        if($response->Code=='OK'){
             $data = [
                 "status" => true,
                 "message" => "获取短信验证码成功" . $code//$code调试用，记得删掉
             ];
-//        }else{
-//            $data = [
-//                "status" => false,
-//                "message" => "获取短信验证码错误" . $response->Message
-//            ];
-//        }
+        }else{
+            $data = [
+                "status" => false,
+                "message" => "获取短信验证码错误" . $response->Message
+            ];
+        }
 
         return $data;
         

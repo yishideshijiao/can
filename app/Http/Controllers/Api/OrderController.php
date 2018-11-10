@@ -12,11 +12,15 @@ use App\Models\Order_goods;
 use App\Models\OrderGoods;
 use App\Models\Shop;
 use App\Models\User;
+use EasyWeChat\Foundation\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Mrgoon\AliSms\AliSms;
-
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends BaseController
 {
@@ -213,6 +217,105 @@ class OrderController extends BaseController
             'status' => 'true',
             "message" => "支付成功"
         ];
+    }
+
+    public function wxPay(Request $request)
+    {
+
+        //订单ID
+        $id =$request->get("id");
+        //把订单找出来
+        $orderModel = Order::find($id);
+        //dd($id);
+        //0.配置
+        $options = config("wechat");
+        //dd($options);
+        $app = new Application($options);
+
+        $payment = $app->payment;
+        //1.生成订单
+
+        $attributes = [
+            'trade_type'       => 'NATIVE', // JSAPI，NATIVE，APP...
+            'body'             => '点餐平台',
+            'detail'           => '点餐平台1',
+            'out_trade_no'     => $orderModel->sn,
+            'total_fee'        => $orderModel->total * 100, // 单位：分
+            'notify_url'       => 'http://www.modalang5.cn/api/order/ok', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+//            'openid'           => '当前用户的 openid', // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
+            // ...
+        ];
+
+        $order = new \EasyWeChat\Payment\Order($attributes);
+//        //统一下单
+
+        $result = $payment->prepare($order);
+        //dd($result);
+        if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS'){
+            $codeUrl=$result->code_url;
+
+
+            $qrCode = new QrCode($codeUrl);
+//dd($qrCode->getContentType());
+            //普通方法
+            header('Content-Type: '.$qrCode->getContentType());
+            exit($qrCode->writeString());
+
+
+        }else{
+            return $result;
+        }
+    }
+
+
+    //微信异步通知
+    public function ok()
+    {
+        //0.配置
+        $options = config("wechat");
+        //dd($options);
+        $app = new Application($options);
+        //1.回调
+        $response = $app->payment->handleNotify(function ($notify, $successful) {
+            // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
+            // $order = 查询订单($notify->out_trade_no);
+            $order=Order::where("sn",$notify->out_trade_no)->first();
+
+            if (!$order) { // 如果订单不存在
+                return 'Order not exist.'; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
+            }
+
+            // 如果订单存在
+            // 检查订单是否已经更新过支付状态
+            if ($order->status==1) { // 假设订单字段“支付时间”不为空代表已经支付
+                return true; // 已经支付成功了就不再更新了
+            }
+
+            // 用户是否支付成功
+            if ($successful) {
+                // 不是已经支付状态则修改为已经支付状态
+                //$order->paid_at = time(); // 更新支付时间为当前时间
+                $order->status = 1;
+            }
+
+            $order->save(); // 保存订单
+
+            return true; // 返回处理完成
+        });
+
+        return $response;
+    }
+
+    public function status()
+    {
+        $id = \request()->get("id");
+
+        $order = Order::find($id);
+
+        return [
+            "status"=>$order->status
+        ];
+
     }
 
 
